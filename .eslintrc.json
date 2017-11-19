@@ -1,0 +1,44 @@
+{
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "env": {
+        "node": true,
+        "es6": true,
+        "browser": true,
+        "mocha": true
+    },
+    "plugins": [
+        "react"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2017,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "modules": true,
+            "jsx": true,
+            "experimentalObjectRestSpread": true
+        }
+    },
+    "rules": {
+        "comma-dangle": ["error", "never"], // require or disallow trailing commas
+        "no-const-assign": ["error"], // Disallow modifying variables that are declared using const
+        "no-extra-semi": ["error"], // disallow unnecessary semicolons
+        "semi": ["error"], // require or disallow semicolons instead of ASI (semi)
+        "no-fallthrough": ["error"], // Disallow Case Statement Fallthrough
+        "no-empty": ["error"], // disallow empty block statements
+        "no-mixed-spaces-and-tabs": ["error"], // disallow mixed spaces and tabs for indentation
+        "no-redeclare": ["error"], // disallow variable redeclaration
+        "no-this-before-super": ["error"], // Disallow use of this/super before calling super() in constructors.
+        "no-undef": ["error"], // Disallow Undeclared Variables
+        "no-unreachable": ["error"], // disallow unreachable code after return, throw, continue, and break statements
+        "no-unused-vars": ["error", { "vars": "all", "args": "none", "ignoreRestSiblings": false }], // Disallow Unused Variables
+        "no-use-before-define": ["error", { "functions": false, "classes": false, "variables": true }], // Disallow Early Use
+        "constructor-super": ["error"], // Verify calls of super() in constructors
+        "curly": ["error", "all"], // Require Following Curly Brace Conventions
+        "eqeqeq": ["error", "always"], // Require === and !==
+        "func-names": ["error", "never"], // Require or disallow named function expressions
+        "valid-typeof": ["error"], // enforce comparing typeof expressions against valid strings
+        "no-console": ["error"], // disallow the use of console
+        "strict": ["error", "safe"], // require or disallow strict mode directives
+        "camelcase": ["error", { "properties": "always" }] // Require Camelcase
+    }
+}

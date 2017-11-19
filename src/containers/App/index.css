@@ -1,0 +1,129 @@
+body {
+    font-family: Roboto, Helvetica, sans-serif;
+    font-size: 15px;
+    background-color: #f2f3f5;
+    margin: 0;
+    padding-top: 55px;
+}
+
+a {
+    text-decoration: none;
+    color: #34495e;
+}
+
+.main-header {
+    background-color: #f60;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.main-nav {
+    max-width: 800px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 15px 5px;
+}
+
+.nav-item {
+    color: hsla(0, 0%, 100%, .8);
+    line-height: 24px;
+    -webkit-transition: color .15s ease;
+    transition: color .15s ease;
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: 300;
+    letter-spacing: .075em;
+    margin-right: 1.8em;
+}
+
+.nav-item.active {
+    color: #fff;
+    font-weight: 400;
+}
+
+.page-nav {
+    background-color: #fff;
+    border-radius: 2px;
+    padding: 15px 30px;
+    position: fixed;
+    text-align: center;
+    top: 55px;
+    left: 0;
+    right: 0;
+    z-index: 998;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+}
+
+.page-nav-link {
+    margin: 0 1em;
+}
+
+.page-nav-link.disabled {
+    color: #ccc;
+}
+
+.page-main {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.post-list {
+    background-color: #fff;
+    border-radius: 2px;
+    position: absolute;
+    margin: 72px 0 30px;
+    width: 100%;
+    -webkit-transition: all .5s cubic-bezier(.55, 0, .1, 1);
+    transition: all .5s cubic-bezier(.55, 0, .1, 1);
+    list-style: none;
+    padding: 0;
+}
+
+.post-list li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.post-compact {
+    background-color: #fff;
+    padding: 20px 30px 20px 80px;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    line-height: 20px;
+}
+
+.post-score {
+    color: #f60;
+    font-size: 1.1em;
+    font-weight: 700;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 80px;
+    text-align: center;
+    margin-top: -10px;
+}
+
+.post-title {
+    color: #34495e;
+}
+
+.post-metadata {
+    font-size: .85em;
+    color: #999;
+    display: block;
+}
+
+.post-comments {
+    text-decoration: underline;
+}
+
+.post-comments a {
+    color: #999;
+    text-decoration: underline;
+}
