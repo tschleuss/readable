@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { Route, NavLink } from 'react-router-dom'
 import * as ReadableAPI from '../../api/ReadableAPI';
+import PostList from '../PostList'
 import './index.css';
+import 'font-awesome/css/font-awesome.min.css';
 
 class App extends Component {
 
@@ -26,34 +29,26 @@ class App extends Component {
             <div className="root">
                 <header className="main-header">
                     <nav className="main-nav">
+                        <NavLink to="/home" className="nav-item" activeClassName="active">Home</NavLink>
                         {categories.map(categorie => (
-                            <a key={categorie.name} className="nav-item active" href="/html/">{categorie.name}</a>
+                            <NavLink key={categorie.name} to={'/' + categorie.name} className="nav-item" activeClassName="active">{categorie.name}</NavLink>
                         ))}
                     </nav>
                 </header>
                 <nav className="page-nav">
-                    <a className="page-nav-link disabled" href="/html/">&lt;&nbsp;prev</a>
-                    <span>1/23</span>
-                    <a className="page-nav-link" href="/html/">more&nbsp;&gt;</a>
+                    <div className="page-nav-options">
+                        <a className="page-nav-link disabled" href="/html/">&lt;&nbsp;prev</a>
+                        <span>1/23</span>
+                        <a className="page-nav-link" href="/html/">more&nbsp;&gt;</a>
+                    </div>
+                    <div className="page-nav-sort">
+                        
+                    </div>
                 </nav>
                 <main className="page-main">
-                    <ul className="post-list">
-                        {posts.map(post => (
-                            <li key={post.id}>
-                                <article className="post-compact">
-                                    <span className="post-score">{post.voteScore}</span>
-                                    <a className="post-title" href="/">{post.title}</a>
-                                    <div className="post-metadata">
-                                        <span className="post-time">2 hour ago</span>
-                                        <span>&nbsp;|&nbsp;</span>
-                                        <span className="post-comments">
-                                            <a href="/">{post.commentCount} comments</a>
-                                        </span>
-                                    </div>
-                                </article>
-                            </li>
-                        ))}
-                    </ul>
+                    <Route path="/:category" render={({match}) => (
+                        <PostList posts={posts} match={match} />
+                    )} />
                 </main>
             </div>
         );

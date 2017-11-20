@@ -57,12 +57,20 @@ a {
     box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
 }
 
+.page-nav-options {
+    display: inline-block;
+}
+
 .page-nav-link {
     margin: 0 1em;
 }
 
 .page-nav-link.disabled {
     color: #ccc;
+}
+
+.page-nav-sort {
+    display: inline-block;
 }
 
 .page-main {
@@ -97,16 +105,31 @@ a {
     line-height: 20px;
 }
 
-.post-score {
+.post-score-container {
     color: #f60;
     font-size: 1.1em;
     font-weight: 700;
     position: absolute;
-    top: 50%;
+    /* top: 50%; */
     left: 0;
-    width: 80px;
+    width: 60px;
     text-align: center;
     margin-top: -10px;
+}
+
+.post-score {
+    display: block;
+}
+
+.post-score-vote-up,
+.post-score-vote-down {
+    color: #969696;
+    display: inline-block;
+    cursor: pointer;
+    background: none;
+    border: 0;
+    font-size: 15px;
+    outline: none;
 }
 
 .post-title {
