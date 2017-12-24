@@ -22,7 +22,7 @@
         "comma-dangle": ["error", "never"], // require or disallow trailing commas
         "no-const-assign": ["error"], // Disallow modifying variables that are declared using const
         "no-extra-semi": ["error"], // disallow unnecessary semicolons
-        "semi": ["error"], // require or disallow semicolons instead of ASI (semi)
+        "semi": ["error", "never"], // require or disallow semicolons instead of ASI (semi)
         "no-fallthrough": ["error"], // Disallow Case Statement Fallthrough
         "no-empty": ["error"], // disallow empty block statements
         "no-mixed-spaces-and-tabs": ["error"], // disallow mixed spaces and tabs for indentation
@@ -39,6 +39,9 @@
         "valid-typeof": ["error"], // enforce comparing typeof expressions against valid strings
         "no-console": ["error"], // disallow the use of console
         "strict": ["error", "safe"], // require or disallow strict mode directives
-        "camelcase": ["error", { "properties": "always" }] // Require Camelcase
+        "camelcase": ["error", { "properties": "always" }], // Require Camelcase
+        "arrow-parens": ["error", "as-needed"], // Require parens in arrow function arguments (arrow-parens)
+        "object-shorthand": ["error", "always", { "avoidQuotes": true, "ignoreConstructors": true }], // Require Object Literal Shorthand Syntax (object-shorthand)
+        "arrow-body-style": ["error", "as-needed"] // Require braces in arrow function body (arrow-body-style)
     }
 }

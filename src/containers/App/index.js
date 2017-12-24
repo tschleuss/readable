@@ -1,30 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { Route, NavLink } from 'react-router-dom'
-import * as ReadableAPI from '../../api/ReadableAPI';
+import { connect } from 'react-redux'
+import { getCategories } from '../../actions/actionApi'
 import PostList from '../PostList'
-import './index.css';
-import 'font-awesome/css/font-awesome.min.css';
+import PropTypes from 'prop-types'
+import './index.css'
+import 'font-awesome/css/font-awesome.min.css'
 
 class App extends Component {
 
-    state = {
-        categories: [],
-        posts: []
-    }
-
-    componentDidMount = () => {
-        ReadableAPI.getPosts().then(posts => {
-            console.log(posts);
-            this.setState({ posts })
-        });
-        ReadableAPI.getCategories().then(categories => {
-            console.log(categories);
-            this.setState({ categories })
-        });
+    componentDidMount() {
+        this.props.getCategories()
     }
 
     render() {
-        const { posts, categories } = this.state;
+        const { posts, categories } = this.props
         return (
             <div className="root">
                 <header className="main-header">
@@ -51,8 +41,26 @@ class App extends Component {
                     )} />
                 </main>
             </div>
-        );
+        )
     }
 }
 
-export default App;
+App.propTypes = {
+    getCategories: PropTypes.func.isRequired,
+    posts: PropTypes.array.isRequired,
+    categories: PropTypes.array.isRequired
+}
+
+const mapStateToProps = state => {
+    const { posts, categories } = state
+    return {
+        posts: posts.items,
+        categories: categories.items
+    }
+}
+
+const mapDispatchToProps = dispatch => ({
+    getCategories: () => dispatch(getCategories())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

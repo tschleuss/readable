@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import './index.css';
+import React from 'react'
+import PropTypes from 'prop-types'
+import './index.css'
 
-const PostList = ({ posts = [], match }) => (
+const PostList = ({ posts = [] }) => (
     <ul className="post-list">
         {posts.map(post => (
             <li key={post.id}>
@@ -17,7 +18,7 @@ const PostList = ({ posts = [], match }) => (
                     </span>
                     <a className="post-title" href="/">{post.title}</a>
                     <div className="post-metadata">
-                        <span className="post-author">by {match.params.category}</span>
+                        <span className="post-author">by {post.author}</span>
                         <span>&nbsp;|&nbsp;</span>
                         <span className="post-time">2 hour ago</span>
                         <span>&nbsp;|&nbsp;</span>
@@ -29,6 +30,10 @@ const PostList = ({ posts = [], match }) => (
             </li>
         ))}
     </ul>
-);
+)
 
-export default PostList;
+PostList.propTypes = {
+    posts: PropTypes.array.isRequired
+}
+
+export default PostList
