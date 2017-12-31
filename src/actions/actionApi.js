@@ -9,3 +9,28 @@ export function getCategories() {
                 dispatch(ActionCreators.receiveCategories(categories)))
     }
 }
+
+export function getPosts(category = null) {
+    if (category !== null && category !== 'home') {
+        return getPostsByCategory(category)
+    }
+    return getAllPosts()
+}
+
+export function getAllPosts() {
+    return dispatch => {
+        dispatch(ActionCreators.getPosts())
+        return ReadableAPI.getPosts()
+            .then(posts =>
+                dispatch(ActionCreators.receivePosts(posts)))
+    }
+}
+
+export function getPostsByCategory(category) {
+    return dispatch => {
+        dispatch(ActionCreators.getPostsByCategory(category))
+        return ReadableAPI.getPostsByCategory(category)
+            .then(posts =>
+                dispatch(ActionCreators.receivePosts(posts, category)))
+    }
+}

@@ -14,14 +14,12 @@ export const posts = (state = postsState, action) => {
                 ...state,
                 isFetching: true
             }
-
         case ActionTypes.GET_POSTS_BY_CATEGORY:
             return {
                 ...state,
                 isFetching: true,
                 category: action.category
             }
-
         case ActionTypes.RECEIVE_POSTS:
             return {
                 isFetching: false,
@@ -29,7 +27,6 @@ export const posts = (state = postsState, action) => {
                 category: action.category,
                 items: action.posts
             }
-
         default:
             return { ...state }
     }

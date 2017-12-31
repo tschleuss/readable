@@ -6,7 +6,7 @@ export const getPosts = () =>
 export const getPostsByCategory = category =>
     ({ type: ActionTypes.GET_POSTS_BY_CATEGORY, category })
 
-export const receivePosts = (category, posts) =>
+export const receivePosts = (posts, category = null) =>
     ({ type: ActionTypes.RECEIVE_POSTS, category, posts, receivedAt: Date.now() })
 
 export const getCategories = () =>

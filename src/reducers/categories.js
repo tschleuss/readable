@@ -19,7 +19,6 @@ export const categories = (state = categoriesState, action) => {
                 lastUpdated: action.receivedAt,
                 items: action.categories
             }
-
         default:
             return { ...state }
     }
