@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Route, NavLink } from 'react-router-dom'
+import { Route, NavLink, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getCategories, getPosts } from '../../actions/actionApi'
-import PostList from '../PostList'
+import Forum from '../Forum'
 import PropTypes from 'prop-types'
 import './index.css'
 import 'font-awesome/css/font-awesome.min.css'
@@ -11,18 +11,17 @@ class Home extends Component {
 
     componentDidMount() {
         this.props.getCategories()
-        this.props.getPosts(this.props.category)
     }
 
     render() {
-        const { posts, categories, category } = this.props
+        const { categories, category } = this.props
         return (
             <div className="root">
                 <header className="main-header">
                     <nav className="main-nav">
                         <NavLink to="/home" className="nav-item" activeClassName="active">Home</NavLink>
                         {categories.map(categorie => (
-                            <NavLink key={categorie.name} to={'/' + categorie.name} className="nav-item" activeClassName="active">{categorie.name}</NavLink>
+                            <NavLink key={categorie.name} to={`/${categorie.name}`} className="nav-item" activeClassName="active">{categorie.name}</NavLink>
                         ))}
                     </nav>
                 </header>
@@ -35,8 +34,8 @@ class Home extends Component {
                     <div className="page-nav-sort"></div>
                 </nav>
                 <main className="page-main">
-                    <Route path="/:category" render={({match}) => (
-                        <PostList posts={posts} />
+                    <Route path="/:category" render={() => (
+                        <Forum category={category} />
                     )} />
                 </main>
             </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import TimeAgo from 'react-timeago'
 import './index.css'
 
 const PostList = ({ posts = [] }) => (
@@ -20,7 +21,9 @@ const PostList = ({ posts = [] }) => (
                     <div className="post-metadata">
                         <span className="post-author">by {post.author}</span>
                         <span>&nbsp;|&nbsp;</span>
-                        <span className="post-time">2 hour ago</span>
+                        <span className="post-time">
+                            <TimeAgo date={post.timestamp} />
+                        </span>
                         <span>&nbsp;|&nbsp;</span>
                         <span className="post-comments">
                             <a href="/">{post.commentCount} comments</a>
