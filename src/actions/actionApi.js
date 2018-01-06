@@ -34,3 +34,21 @@ export function getPostsByCategory(category) {
                 dispatch(ActionCreators.receivePosts(posts, category)))
     }
 }
+
+export function upVotePost(id) {
+    return dispatch => {
+        dispatch(ActionCreators.upVotePost(id))
+        return ReadableAPI.upVotePostById(id)
+            .then(post =>
+                dispatch(ActionCreators.receiveUpdatedPost(post)))
+    }
+}
+
+export function downVotePost(id) {
+    return dispatch => {
+        dispatch(ActionCreators.downVotePost(id))
+        return ReadableAPI.downVotePostById(id)
+            .then(post =>
+                dispatch(ActionCreators.receiveUpdatedPost(post)))
+    }
+}

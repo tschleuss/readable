@@ -14,3 +14,12 @@ export const getCategories = () =>
 
 export const receiveCategories = categories =>
     ({ type: ActionTypes.RECEIVE_CATEGORIES, categories, receivedAt: Date.now() })
+
+export const upVotePost = id =>
+    ({ type: ActionTypes.UP_VOTE_POST, id })
+
+export const downVotePost = id =>
+    ({ type: ActionTypes.DOWN_VOTE_POST, id })
+
+export const receiveUpdatedPost = post =>
+    ({ type: ActionTypes.RECEIVE_UPDATED_POST, post })

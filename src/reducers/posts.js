@@ -22,10 +22,41 @@ export const posts = (state = postsState, action) => {
             }
         case ActionTypes.RECEIVE_POSTS:
             return {
+                ...state,
                 isFetching: false,
                 lastUpdated: action.receivedAt,
                 category: action.category,
                 items: action.posts
+            }
+        case ActionTypes.UP_VOTE_POST:
+            return {
+                ...state,
+                items: state.items.map(post => {
+                    if (post.id === action.id) {
+                        post.voteScore++
+                    }
+                    return post
+                })
+            }
+        case ActionTypes.DOWN_VOTE_POST:
+            return {
+                ...state,
+                items: state.items.map(post => {
+                    if (post.id === action.id) {
+                        post.voteScore--
+                    }
+                    return post
+                })
+            }
+        case ActionTypes.RECEIVE_UPDATED_POST:
+            return {
+                ...state,
+                items: state.items.map(post => {
+                    if (post.id === action.post.id) {
+                        return action.post
+                    }
+                    return post
+                })
             }
         default:
             return { ...state }
