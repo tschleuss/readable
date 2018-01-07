@@ -28,9 +28,9 @@
     },
     "devDependencies": {
         "eslint": "^4.11.0",
+        "eslint-plugin-react": "^7.5.0",
         "gulp": "^3.9.1",
         "gulp-eslint": "^4.0.0",
-        "eslint-plugin-react": "^7.5.0",
         "redux-devtools-extension": "^2.13.2"
     }
 }

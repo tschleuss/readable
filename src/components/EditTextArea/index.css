@@ -1,0 +1,19 @@
+.edit-textarea-container {}
+
+.edit-textarea {
+    display: block;
+    width: 100%;
+}
+
+.edit-textarea-actions {
+    margin: 5px 0 10px 0;
+}
+
+.edit-textarea-action {
+    display: inline-block;
+    border: 0;
+    background-color: #999;
+    color: #fff;
+    padding: 5px 15px;
+    margin-right: 5px;
+}
