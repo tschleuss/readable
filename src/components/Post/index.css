@@ -1,4 +1,4 @@
-.post-compact {
+.post-container {
     background-color: #fff;
     padding: 20px 30px 20px 80px;
     border-bottom: 1px solid #eee;
@@ -14,7 +14,7 @@
     left: 0;
     width: 60px;
     text-align: center;
-    margin-top: -10px;
+    top: 10px;
 }
 
 .post-score {
@@ -33,7 +33,21 @@
 }
 
 .post-title {
+    display: block;
     color: #34495e;
+}
+
+.post-body {
+    display: block;
+    background-color: #FAFBFC;
+    border: 1px solid #eef1f5;
+    padding: 10px 20px 10px 20px;
+    margin: 5px 0px;
+    position: relative;
+    color: #999;
+    text-align: justify;
+    border-left-width: 5px;
+    border-radius: 3px;
 }
 
 .post-metadata {
@@ -48,5 +62,16 @@
 
 .post-comments a {
     color: #999;
+    text-decoration: underline;
+}
+
+.post-actions {
+    font-size: .85em;
+    color: #999;
+    display: block;
+}
+
+.post-action {
+    color: #34495e;
     text-decoration: underline;
 }

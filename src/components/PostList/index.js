@@ -7,7 +7,7 @@ const PostList = ({ posts = [] }) => (
     <ul className="post-list">
         {posts.map(post => (
             <li key={post.id}>
-                <Post data={post} />
+                <Post data={post} compact={true} />
             </li>
         ))}
     </ul>

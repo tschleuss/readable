@@ -9,7 +9,7 @@ import './index.css'
 const Comment = props => {
     const { data: comment = {}, upVote, downVote } = props
     return (
-        <article className="comment-compact">
+        <article className="comment-container">
             <span className="comment-score-container">
                 <button className="comment-score-vote-up" onClick={() => upVote(comment.id)}>
                     <em className="fa fa-arrow-up" aria-hidden="true"></em>

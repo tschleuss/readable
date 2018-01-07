@@ -28,9 +28,9 @@ class Home extends Component {
                 </header>
                 <nav className="page-nav">
                     <div className="page-nav-options">
-                        <a className="page-nav-link disabled" href="/html/">&lt;&nbsp;prev</a>
+                        {/* <a className="page-nav-link disabled" href="/html/">&lt;&nbsp;prev</a>
                         <span>1/23</span>
-                        <a className="page-nav-link" href="/html/">more&nbsp;&gt;</a>
+                        <a className="page-nav-link" href="/html/">more&nbsp;&gt;</a> */}
                     </div>
                     <div className="page-nav-sort"></div>
                 </nav>
