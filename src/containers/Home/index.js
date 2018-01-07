@@ -2,19 +2,20 @@ import React, { Component } from 'react'
 import { Route, NavLink, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getCategories, getPosts } from '../../actions/actionApi'
-import Forum from '../Forum'
+import Forum from '../../components/Forum'
+import Topic from '../../components/Topic'
 import PropTypes from 'prop-types'
-import './index.css'
 import 'font-awesome/css/font-awesome.min.css'
+import './index.css'
 
 class Home extends Component {
 
-    componentDidMount() {
+    componentWillMount() {
         this.props.getCategories()
     }
 
     render() {
-        const { categories, category } = this.props
+        const { categories } = this.props
         return (
             <div className="root">
                 <header className="main-header">
@@ -34,9 +35,14 @@ class Home extends Component {
                     <div className="page-nav-sort"></div>
                 </nav>
                 <main className="page-main">
-                    <Route path="/:category" render={() => (
-                        <Forum category={category} />
-                    )} />
+                    <Switch>
+                        <Route exact path="/:category" render={({match}) => (
+                            <Forum category={match.params.category}/>
+                        )} />
+                        <Route exact path="/:category/:postId" render={({match}) => (
+                            <Topic id={match.params.postId}/>
+                        )} />
+                    </Switch>
                 </main>
             </div>
         )
@@ -47,8 +53,7 @@ Home.propTypes = {
     getCategories: PropTypes.func.isRequired,
     getPosts: PropTypes.func.isRequired,
     posts: PropTypes.array.isRequired,
-    categories: PropTypes.array.isRequired,
-    category: PropTypes.string.isRequired
+    categories: PropTypes.array.isRequired
 }
 
 const mapStateToProps = state => {

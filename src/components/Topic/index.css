@@ -1,0 +1,11 @@
+.topic {
+    background-color: #fff;
+    border-radius: 2px;
+    position: absolute;
+    margin: 72px 0 30px;
+    width: 100%;
+    -webkit-transition: all .5s cubic-bezier(.55, 0, .1, 1);
+    transition: all .5s cubic-bezier(.55, 0, .1, 1);
+    list-style: none;
+    padding: 0;
+}

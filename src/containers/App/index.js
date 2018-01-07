@@ -1,14 +1,9 @@
 import React from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import Home from '../Home'
 
 const App = () => (
-    <Switch>
-        <Redirect exact from='/' to='/home'/>
-        <Route exact path="/:category" render={({match}) => (
-            <Home category={match.params.category} />
-        )} />
-    </Switch>
+    <Route path="/" component={Home}/>
 )
 
 export default App

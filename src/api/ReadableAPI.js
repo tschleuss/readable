@@ -2,6 +2,7 @@ import { apiHost, apiToken } from '../config'
 
 const headers = {
     'Accept': 'application/json',
+    'Content-Type': 'application/json',
     'Authorization': apiToken
 }
 

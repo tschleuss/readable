@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 class Forum extends Component {
 
     componentWillMount() {
-        this.fetchPosts(this.props.category);
+        this.fetchPosts(this.props.category)
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
@@ -21,12 +21,8 @@ class Forum extends Component {
     }
 
     render() {
-        const { posts, category } = this.props
-        return (
-            <div>
-                <PostList posts={posts} />
-            </div>
-        )
+        const { posts } = this.props
+        return <PostList posts={posts} />
     }
 }
 

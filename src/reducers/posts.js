@@ -49,14 +49,22 @@ export const posts = (state = postsState, action) => {
                 })
             }
         case ActionTypes.RECEIVE_UPDATED_POST:
-            return {
-                ...state,
-                items: state.items.map(post => {
+            {
+                let updated = false
+                const items = state.items.map(post => {
                     if (post.id === action.post.id) {
+                        updated = true
                         return action.post
                     }
                     return post
                 })
+                if (!updated) {
+                    items.push(action.post)
+                }
+                return {
+                    ...state,
+                    items
+                }
             }
         default:
             return { ...state }

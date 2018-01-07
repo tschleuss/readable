@@ -1,0 +1,52 @@
+.post-compact {
+    background-color: #fff;
+    padding: 20px 30px 20px 80px;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    line-height: 20px;
+}
+
+.post-score-container {
+    color: #f60;
+    font-size: 1.1em;
+    font-weight: 700;
+    position: absolute;
+    left: 0;
+    width: 60px;
+    text-align: center;
+    margin-top: -10px;
+}
+
+.post-score {
+    display: block;
+}
+
+.post-score-vote-up,
+.post-score-vote-down {
+    color: #969696;
+    display: inline-block;
+    cursor: pointer;
+    background: none;
+    border: 0;
+    font-size: 15px;
+    outline: none;
+}
+
+.post-title {
+    color: #34495e;
+}
+
+.post-metadata {
+    font-size: .85em;
+    color: #999;
+    display: block;
+}
+
+.post-comments {
+    text-decoration: underline;
+}
+
+.post-comments a {
+    color: #999;
+    text-decoration: underline;
+}

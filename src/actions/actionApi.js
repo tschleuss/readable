@@ -35,6 +35,15 @@ export function getPostsByCategory(category) {
     }
 }
 
+export function getPostById(id) {
+    return dispatch => {
+        dispatch(ActionCreators.getPostById(id))
+        return ReadableAPI.getPostsById(id)
+            .then(post =>
+                dispatch(ActionCreators.receiveUpdatedPost(post)))
+    }
+}
+
 export function upVotePost(id) {
     return dispatch => {
         dispatch(ActionCreators.upVotePost(id))
@@ -50,5 +59,32 @@ export function downVotePost(id) {
         return ReadableAPI.downVotePostById(id)
             .then(post =>
                 dispatch(ActionCreators.receiveUpdatedPost(post)))
+    }
+}
+
+export function getCommentsByPostId(id) {
+    return dispatch => {
+        dispatch(ActionCreators.getCommentsByPostId(id))
+        return ReadableAPI.getCommentsByPostId(id)
+            .then(comments =>
+                dispatch(ActionCreators.receiveComments(comments)))
+    }
+}
+
+export function upVoteComment(id) {
+    return dispatch => {
+        dispatch(ActionCreators.upVoteComment(id))
+        return ReadableAPI.upVoteCommentById(id)
+            .then(comment =>
+                dispatch(ActionCreators.receiveUpdatedComment(comment)))
+    }
+}
+
+export function downVoteComment(id) {
+    return dispatch => {
+        dispatch(ActionCreators.downVoteComment(id))
+        return ReadableAPI.downVoteCommentById(id)
+            .then(comment =>
+                dispatch(ActionCreators.receiveUpdatedComment(comment)))
     }
 }
