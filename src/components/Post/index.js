@@ -13,21 +13,21 @@ class Post extends Component {
     constructor(props) {
         super(props)
         this.state = { editMode: false }
-        this.handleTitleChange = this.handleTitleChange.bind(this)
-        this.cancelTitleChange = this.cancelTitleChange.bind(this)
+        this.handleBodyChange = this.handleBodyChange.bind(this)
+        this.cancelBodyChange = this.cancelBodyChange.bind(this)
     }
 
     toggleEditMode() {
         this.setState({ editMode: true })
     }
 
-    handleTitleChange(value) {
+    handleBodyChange(value) {
         const { data: post = {} } = this.props
         this.props.editPost({ id: post.id, body: value })
-        this.cancelTitleChange()
+        this.cancelBodyChange()
     }
 
-    cancelTitleChange() {
+    cancelBodyChange() {
         this.setState({ editMode: false })
     }
 
@@ -56,9 +56,7 @@ class Post extends Component {
                     <span className="post-body">{post.body}</span>
                 )}
                 {!compact && editMode && (
-                    <EditTextArea text={post.body} 
-                                onSave={this.handleTitleChange} 
-                              onCancel={this.cancelTitleChange} />
+                    <EditTextArea text={post.body} onSave={this.handleBodyChange} onCancel={this.cancelBodyChange} />
                 )}
                 <div className="post-metadata">
                     <span className="post-author">by {post.author}</span>

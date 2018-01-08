@@ -48,6 +48,14 @@ export const posts = (state = postsState, action) => {
                     return post
                 })
             }
+        case ActionTypes.EDIT_POST:
+            return {
+                ...state
+            }
+        case ActionTypes.DELETE_POST_BY_ID:
+            return {
+                ...state
+            }
         case ActionTypes.RECEIVE_UPDATED_POST:
             {
                 let updated = false

@@ -41,3 +41,14 @@
     color: #999;
     display: block;
 }
+
+.comment-actions {
+    font-size: .85em;
+    color: #999;
+    display: block;
+}
+
+.comment-action {
+    color: #34495e;
+    text-decoration: underline;
+}
