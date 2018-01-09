@@ -1,8 +1,7 @@
-.edit-textarea-container {}
-
 .edit-textarea {
     display: block;
     width: 100%;
+    border: 1px solid #d2d2d2;
 }
 
 .edit-textarea-actions {

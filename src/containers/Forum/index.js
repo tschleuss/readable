@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getPosts } from '../../actions/actionApi'
-import PostList from '../PostList'
+import PostList from '../../components/PostList'
 import PropTypes from 'prop-types'
+import './index.css'
 
 class Forum extends Component {
 
@@ -22,7 +24,18 @@ class Forum extends Component {
 
     render() {
         const { posts } = this.props
-        return <PostList posts={posts} />
+        return (
+            <div>
+                <nav className="page-nav">
+                    <div className="page-nav-options">
+                        <Link className="page-nav-link" to="/submit">new text post</Link>
+                    </div>
+                </nav>
+                <main className="page-main">
+                    <PostList posts={posts} />
+                </main>
+            </div>
+        )
     }
 }
 

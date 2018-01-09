@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getPostById, getCommentsByPostId } from '../../actions/actionApi'
 import PropTypes from 'prop-types'
-import Post from '../Post'
-import CommentList from '../CommentList'
+import Post from '../../components/Post'
+import CommentList from '../../components/CommentList'
 import './index.css'
 
 class Topic extends Component {
@@ -21,9 +21,21 @@ class Topic extends Component {
         const { id, comments } = this.props
         const post = this.getPost(id)
         return (
-            <div className="topic">
-                {post && <Post data={post} />}
-                {comments && <CommentList comments={comments}/>}
+            <div>
+                <nav className="page-nav">
+                    <div className="page-nav-options">
+                        {/* <a className="page-nav-link disabled" href="/html/">&lt;&nbsp;prev</a>
+                        <span>1/23</span>
+                        <a className="page-nav-link" href="/html/">more&nbsp;&gt;</a> */}
+                    </div>
+                    <div className="page-nav-sort"></div>
+                </nav>
+                <main className="page-main">
+                    <div className="topic">
+                        {post && <Post data={post} />}
+                        {comments && <CommentList comments={comments}/>}
+                    </div>
+                </main>
             </div>
         )
     }
