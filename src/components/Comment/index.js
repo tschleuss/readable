@@ -59,9 +59,9 @@ class Comment extends Component {
                     </span>
                 </div>
                 <div className="comment-actions">
-                    <a href="javascript:void(0);" className="comment-action" onClick={() => this.toggleEditMode()}>edit</a>
+                    <button className="comment-action" onClick={() => this.toggleEditMode()}>edit</button>
                     <span>&nbsp;|&nbsp;</span>
-                    <a href="javascript:void(0);" className="comment-action" onClick={() => {}}>delete</a>
+                    <button className="comment-action" onClick={() => {}}>delete</button>
                 </div>
             </article>
         )

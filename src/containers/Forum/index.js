@@ -23,12 +23,13 @@ class Forum extends Component {
     }
 
     render() {
-        const { posts } = this.props
+        let { category, posts } = this.props
+        category = category === 'home' ? '' : category
         return (
             <div>
                 <nav className="page-nav">
                     <div className="page-nav-options">
-                        <Link className="page-nav-link" to="/submit">new text post</Link>
+                        <Link className="page-nav-link" to={`${category}/submit`}>new text post</Link>
                     </div>
                 </nav>
                 <main className="page-main">

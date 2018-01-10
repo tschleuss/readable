@@ -71,9 +71,9 @@ class Post extends Component {
                 </div>
                 {!compact && (
                     <div className="post-actions">
-                        <a href="javascript:void(0);" className="post-action" onClick={() => this.toggleEditMode()}>edit</a>
+                        <button className="post-action" onClick={() => this.toggleEditMode()}>edit</button>
                         <span>&nbsp;|&nbsp;</span>
-                        <a href="javascript:void(0);" className="post-action" onClick={() => {}}>delete</a>
+                        <button className="post-action" onClick={() => {}}>delete</button>
                     </div>
                 )}
             </article>

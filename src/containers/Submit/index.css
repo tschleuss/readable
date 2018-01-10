@@ -25,7 +25,8 @@
 
 .submit-title,
 .submit-body,
-.submit-category {
+.submit-category,
+.submit-author {
     display: block;
     background-color: #FAFBFC;
     border: 1px solid #eef1f5;

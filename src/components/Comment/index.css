@@ -51,4 +51,7 @@
 .comment-action {
     color: #34495e;
     text-decoration: underline;
+    border: 0;
+    padding: 0;
+    font-size: 1em;
 }

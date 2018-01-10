@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Route, NavLink, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getCategories, getPosts } from '../../actions/actionApi'
+import { ToastContainer } from 'react-toastify'
 import Forum from '../Forum'
 import Topic from '../Topic'
 import Submit from '../Submit'
@@ -31,6 +32,9 @@ class Home extends Component {
                     <Route exact path="/submit" render={({match}) => (
                         <Submit />
                     )} />
+                    <Route exact path="/:category/submit" render={({match}) => (
+                        <Submit />
+                    )} />
                     <Route exact path="/:category" render={({match}) => (
                         <Forum category={match.params.category}/>
                     )} />
@@ -38,6 +42,10 @@ class Home extends Component {
                         <Topic id={match.params.postId}/>
                     )} />
                 </Switch>
+                <ToastContainer
+                    position="bottom-left"
+                    hideProgressBar={true}
+                    newestOnTop={true}/>
             </div>
         )
     }

@@ -29,6 +29,9 @@ export const deletePostById = id =>
 export const receiveUpdatedPost = post =>
     ({ type: ActionTypes.RECEIVE_UPDATED_POST, post })
 
+export const addPost = post =>
+    ({ type: ActionTypes.ADD_POST, post })
+
 /** Categories */
 
 export const getCategories = () =>
@@ -36,6 +39,9 @@ export const getCategories = () =>
 
 export const receiveCategories = categories =>
     ({ type: ActionTypes.RECEIVE_CATEGORIES, categories, receivedAt: Date.now() })
+
+export const saveCategory = category =>
+    ({ type: ActionTypes.SAVE_CATEGORY, category })
 
 /** Comments */
 
@@ -59,3 +65,6 @@ export const deleteCommentById = id =>
 
 export const receiveUpdatedComment = comment =>
     ({ type: ActionTypes.RECEIVE_UPDATED_COMMENT, comment })
+
+export const addComment = comment =>
+    ({ type: ActionTypes.ADD_COMMENT, comment })

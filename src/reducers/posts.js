@@ -74,6 +74,10 @@ export const posts = (state = postsState, action) => {
                     items
                 }
             }
+        case ActionTypes.ADD_POST:
+            return {
+                ...state
+            }
         default:
             return { ...state }
     }

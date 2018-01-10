@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getCategories } from '../../actions/actionApi'
+import { push } from 'react-router-redux'
+import { getCategories, addPost } from '../../actions/actionApi'
+import { toast } from 'react-toastify'
+import uniqid from 'uniqid'
 import Autocomplete from 'react-autocomplete'
 import PropTypes from 'prop-types'
 import './index.css'
@@ -12,8 +15,9 @@ class Submit extends Component {
         this.state = {
             title: '',
             body: '',
-            category: '',
-            inputCategory: ''
+            author: '',
+            category: this.props.category,
+            inputCategory: this.props.category
         }
         this.matchCategoryToTerm = this.matchCategoryToTerm.bind(this)
     }
@@ -24,6 +28,24 @@ class Submit extends Component {
 
     matchCategoryToTerm(state, value) {
         return (state.name.toLowerCase().indexOf(value.toLowerCase()) !== -1)
+    }
+
+    onSave() {
+        const { title, body, author, category } = this.state
+        if (title && body && author && category) {
+            const id = uniqid()
+            const timestamp = Date.now()
+            this.props.addPost({ id, title, body, author, category, timestamp }, post => {
+                toast.success(`Post created successfully`)
+                this.props.openPost(post.category, post.id)
+            })
+        } else {
+            toast.error(`Some fields are missing`)
+        }
+    }
+
+    onCancel() {
+        this.props.goBack()
     }
 
     render() {
@@ -52,6 +74,14 @@ class Submit extends Component {
                                           rows="10" 
                                           value={this.state.body} 
                                           onChange={event => this.setState({ body: event.target.value })}/>
+                            </span>
+                            <span className="submit-author">
+                                <label className="submit-label">author</label>
+                                <input type="text" 
+                                       name="author" 
+                                       className="submit-title-input" 
+                                       value={this.state.author} 
+                                       onChange={event => this.setState({ author: event.target.value })}/>
                             </span>
                             <span className="submit-category">
                                 <label className="submit-label">category</label>
@@ -82,31 +112,37 @@ class Submit extends Component {
                                 </Autocomplete>
                             </span>
                             <div className="submit-actions">
-                                <button onClick={() => this.onSave(this.state.value)} className="edit-textarea-action">save</button>
+                                <button onClick={() => this.onSave()} className="edit-textarea-action">save</button>
                                 <button onClick={() => this.onCancel()} className="edit-textarea-action">cancel</button>
                             </div>
                         </article>
-                    </div>
-                </main>
-            </div>
+                    </div> <
+            /main>  < /
+            div >
         )
     }
 }
 
 Submit.propTypes = {
     getCategories: PropTypes.func.isRequired,
-    categories: PropTypes.array.isRequired
+    categories: PropTypes.array.isRequired,
+    goBack: PropTypes.func.isRequired,
+    openPost: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => {
     const { categories } = state
     return {
-        categories: categories.items
+        categories: categories.items,
+        category: categories.category
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    getCategories: () => dispatch(getCategories())
+    getCategories: () => dispatch(getCategories()),
+    addPost: (post, callback) => dispatch(addPost(post, callback)),
+    goBack: () => dispatch(push('/')),
+    openPost: (category, id) => dispatch(push(`/${category}/${id}`))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Submit)

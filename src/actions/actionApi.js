@@ -14,14 +14,17 @@ export function getAllPosts() {
     return dispatch => {
         dispatch(ActionCreators.getPosts())
         return ReadableAPI.getPosts()
-            .then(posts =>
-                dispatch(ActionCreators.receivePosts(posts)))
+            .then(posts => {
+                dispatch(ActionCreators.saveCategory(''))
+                dispatch(ActionCreators.receivePosts(posts))
+            })
     }
 }
 
 export function getPostsByCategory(category) {
     return dispatch => {
         dispatch(ActionCreators.getPostsByCategory(category))
+        dispatch(ActionCreators.saveCategory(category))
         return ReadableAPI.getPostsByCategory(category)
             .then(posts =>
                 dispatch(ActionCreators.receivePosts(posts, category)))
@@ -32,8 +35,10 @@ export function getPostById(id) {
     return dispatch => {
         dispatch(ActionCreators.getPostById(id))
         return ReadableAPI.getPostsById(id)
-            .then(post =>
-                dispatch(ActionCreators.receiveUpdatedPost(post)))
+            .then(post => {
+                dispatch(ActionCreators.saveCategory(post.category))
+                dispatch(ActionCreators.receiveUpdatedPost(post))
+            })
     }
 }
 
@@ -68,6 +73,17 @@ export function deletePostById(id) {
         dispatch(ActionCreators.deletePostById(id))
         return ReadableAPI.deletePostById(id)
             .then(post => dispatch(ActionCreators.receiveUpdatedPost(post)))
+    }
+}
+
+export function addPost(post, callback = () => {}) {
+    return dispatch => {
+        dispatch(ActionCreators.addPost(post))
+        return ReadableAPI.addPost(post)
+            .then(newPost => {
+                dispatch(ActionCreators.receiveUpdatedPost(newPost))
+                callback(newPost)
+            })
     }
 }
 
@@ -123,6 +139,14 @@ export function deleteCommentById(id) {
     return dispatch => {
         dispatch(ActionCreators.deleteCommentById(id))
         return ReadableAPI.deleteCommentById(id)
+            .then(comment => dispatch(ActionCreators.receiveUpdatedComment(comment)))
+    }
+}
+
+export function addComment(comment) {
+    return dispatch => {
+        dispatch(ActionCreators.addComment(comment))
+        return ReadableAPI.addComment(comment)
             .then(comment => dispatch(ActionCreators.receiveUpdatedComment(comment)))
     }
 }

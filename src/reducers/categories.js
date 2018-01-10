@@ -15,9 +15,15 @@ export const categories = (state = categoriesState, action) => {
             }
         case ActionTypes.RECEIVE_CATEGORIES:
             return {
+                ...state,
                 isFetching: false,
                 lastUpdated: action.receivedAt,
                 items: action.categories
+            }
+        case ActionTypes.SAVE_CATEGORY:
+            return {
+                ...state,
+                category: action.category
             }
         default:
             return { ...state }
