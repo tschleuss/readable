@@ -1,7 +1,6 @@
 .topic {
-    background-color: #fff;
     border-radius: 2px;
-    position: absolute;
+    position: relative;
     margin: 72px 0 30px;
     width: 100%;
     -webkit-transition: all .5s cubic-bezier(.55, 0, .1, 1);

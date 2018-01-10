@@ -35,7 +35,8 @@ class Submit extends Component {
         if (title && body && author && category) {
             const id = uniqid()
             const timestamp = Date.now()
-            this.props.addPost({ id, title, body, author, category, timestamp }, post => {
+            this.props.addPost({ id, title, body, author, category, timestamp })
+            .then(post => {
                 toast.success(`Post created successfully`)
                 this.props.openPost(post.category, post.id)
             })
@@ -104,27 +105,28 @@ class Submit extends Component {
                                             {children}
                                         </div>
                                     )}
-                                    renderItem={(item, isHighlighted) =>
-                                        <div key={item.name} className={isHighlighted ? 'submit-category-result-option selected' : 'submit-category-result-option'}>
+                                    renderItem={(item, isHighlighted) => 
+                                        (<div key={item.name} className={isHighlighted ? 'submit-category-result-option selected' : 'submit-category-result-option'}>
                                             {item.name}
-                                        </div>
+                                        </div>)
                                     }>
                                 </Autocomplete>
                             </span>
                             <div className="submit-actions">
-                                <button onClick={() => this.onSave()} className="edit-textarea-action">save</button>
+                                <button onClick={() => this.onSave()} className="edit-textarea-action">post</button>
                                 <button onClick={() => this.onCancel()} className="edit-textarea-action">cancel</button>
                             </div>
                         </article>
-                    </div> <
-            /main>  < /
-            div >
+                    </div>
+                </main>
+            </div>
         )
     }
 }
 
 Submit.propTypes = {
     getCategories: PropTypes.func.isRequired,
+    addPost: PropTypes.func.isRequired,
     categories: PropTypes.array.isRequired,
     goBack: PropTypes.func.isRequired,
     openPost: PropTypes.func.isRequired
@@ -140,7 +142,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     getCategories: () => dispatch(getCategories()),
-    addPost: (post, callback) => dispatch(addPost(post, callback)),
+    addPost: post => dispatch(addPost(post)),
     goBack: () => dispatch(push('/')),
     openPost: (category, id) => dispatch(push(`/${category}/${id}`))
 })

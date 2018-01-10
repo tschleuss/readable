@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Route, NavLink, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getCategories, getPosts } from '../../actions/actionApi'
+import { getCategories } from '../../actions/actionApi'
 import { ToastContainer } from 'react-toastify'
 import Forum from '../Forum'
 import Topic from '../Topic'
@@ -53,22 +53,18 @@ class Home extends Component {
 
 Home.propTypes = {
     getCategories: PropTypes.func.isRequired,
-    getPosts: PropTypes.func.isRequired,
-    posts: PropTypes.array.isRequired,
     categories: PropTypes.array.isRequired
 }
 
 const mapStateToProps = state => {
-    const { posts, categories } = state
+    const { categories } = state
     return {
-        posts: posts.items,
         categories: categories.items
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    getCategories: () => dispatch(getCategories()),
-    getPosts: category => dispatch(getPosts(category))
+    getCategories: () => dispatch(getCategories())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

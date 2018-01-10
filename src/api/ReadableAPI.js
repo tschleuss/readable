@@ -40,7 +40,6 @@ export const addPost = post =>
         body: JSON.stringify(post)
     })
     .then(res => res.json())
-    .then(data => data)
 
 /**
  * Get a post model by your id.
@@ -113,7 +112,7 @@ export const getCommentsByPostId = id =>
  * @param {Object} comment Comment model.
  */
 export const addComment = comment =>
-    fetch(`${apiHost}/comments/`, {
+    fetch(`${apiHost}/comments`, {
         method: 'POST',
         headers,
         body: JSON.stringify(comment)

@@ -38,6 +38,7 @@ export function getPostById(id) {
             .then(post => {
                 dispatch(ActionCreators.saveCategory(post.category))
                 dispatch(ActionCreators.receiveUpdatedPost(post))
+                return post
             })
     }
 }
@@ -76,13 +77,13 @@ export function deletePostById(id) {
     }
 }
 
-export function addPost(post, callback = () => {}) {
+export function addPost(post) {
     return dispatch => {
         dispatch(ActionCreators.addPost(post))
         return ReadableAPI.addPost(post)
             .then(newPost => {
                 dispatch(ActionCreators.receiveUpdatedPost(newPost))
-                callback(newPost)
+                return newPost
             })
     }
 }
@@ -147,6 +148,9 @@ export function addComment(comment) {
     return dispatch => {
         dispatch(ActionCreators.addComment(comment))
         return ReadableAPI.addComment(comment)
-            .then(comment => dispatch(ActionCreators.receiveUpdatedComment(comment)))
+            .then(newComment => {
+                dispatch(ActionCreators.receiveUpdatedComment(newComment))
+                return newComment
+            })
     }
 }

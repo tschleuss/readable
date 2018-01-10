@@ -65,6 +65,7 @@ a {
 
 .page-nav-link {
     color: #f60;
+    float: left;
     background-color: #f1f1f1;
     border: 1px solid #a2a2a2;
     font-weight: bold;
@@ -79,7 +80,43 @@ a {
 }
 
 .page-nav-sort {
-    display: inline-block;
+    color: #f60;
+    float: right;
+    height: 29px;
+    background-color: #f1f1f1;
+    border: 1px solid #a2a2a2;
+    font-weight: bold;
+    margin: 0px 3px;
+    border-radius: 5px;
+    -webkit-box-shadow: 2px 2px 3px -3px #000000db;
+    box-shadow: 2px 2px 3px -3px #000000db;
+}
+
+.page-nav-sort .Select-control {
+    width: 150px;
+    height: 29px;
+    background-color: transparent;
+    border-radius: 0;
+    border: 0;
+}
+
+.page-nav-sort .Select-input {
+    height: 24px;
+}
+
+.page-nav-sort .Select-placeholder {
+    line-height: 27px;
+}
+
+.page-nav-sort.is-open>.Select-control,
+.page-nav-sort.is-focused:not(.is-open)>.Select-control {
+    background-color: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+.page-nav-sort .Select-option {
+    color: #f60;
 }
 
 .page-main {

@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getPosts } from '../../actions/actionApi'
 import PostList from '../../components/PostList'
+import Select from 'react-select';
 import PropTypes from 'prop-types'
+import 'react-select/dist/react-select.css';
 import './index.css'
 
 class Forum extends Component {
@@ -30,6 +32,16 @@ class Forum extends Component {
                 <nav className="page-nav">
                     <div className="page-nav-options">
                         <Link className="page-nav-link" to={`${category}/submit`}>new text post</Link>
+                        <Select className="page-nav-sort" 
+                                name="sort"
+                                placeholder="Show first..."
+                                onChange={(selectedOption) => { console.log(selectedOption) }}
+                                options={[
+                                    { value: 'date_desc', label: 'New ones' },
+                                    { value: 'date_asc', label: 'Old ones' },
+                                    { value: 'score_desc', label: 'High scores' },
+                                    { value: 'score_asc', label: 'Low scores' },
+                                ]}/>
                     </div>
                 </nav>
                 <main className="page-main">

@@ -23,11 +23,7 @@ class Topic extends Component {
         return (
             <div>
                 <nav className="page-nav">
-                    <div className="page-nav-options">
-                        {/* <a className="page-nav-link disabled" href="/html/">&lt;&nbsp;prev</a>
-                        <span>1/23</span>
-                        <a className="page-nav-link" href="/html/">more&nbsp;&gt;</a> */}
-                    </div>
+                    <div className="page-nav-options"></div>
                     <div className="page-nav-sort"></div>
                 </nav>
                 <main className="page-main">
