@@ -10,6 +10,7 @@ export const EDIT_POST = 'EDIT_POST'
 export const DELETE_POST_BY_ID = 'DELETE_POST_BY_ID'
 export const RECEIVE_UPDATED_POST = 'RECEIVE_UPDATED_POST'
 export const ADD_POST = 'ADD_POST'
+export const SORT_POSTS = 'SORT_POSTS'
 
 /** Categories  */
 
@@ -27,3 +28,4 @@ export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const DELETE_COMMENT_BY_ID = 'DELETE_COMMENT_BY_ID'
 export const RECEIVE_UPDATED_COMMENT = 'RECEIVE_UPDATED_COMMENT'
 export const ADD_COMMENT = 'ADD_COMMENT'
+export const SORT_COMMENTS = 'SORT_COMMENTS'

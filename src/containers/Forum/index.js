@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getPosts } from '../../actions/actionApi'
+import { sortPosts } from '../../actions/actionCreators'
 import PostList from '../../components/PostList'
-import Select from 'react-select';
+import { postComparator } from '../../utils/sortHelper'
+import Select from 'react-select'
 import PropTypes from 'prop-types'
-import 'react-select/dist/react-select.css';
+import 'react-select/dist/react-select.css'
 import './index.css'
 
 class Forum extends Component {
@@ -24,6 +26,11 @@ class Forum extends Component {
         this.props.getPosts(category)
     }
 
+    sortPostsBy(sortType) {
+        const value = sortType ? sortType.value : null
+        this.props.sortPosts(value)
+    }
+
     render() {
         let { category, posts } = this.props
         category = category === 'home' ? '' : category
@@ -34,14 +41,10 @@ class Forum extends Component {
                         <Link className="page-nav-link" to={`${category}/submit`}>new text post</Link>
                         <Select className="page-nav-sort" 
                                 name="sort"
+                                value={this.props.sortBy}
                                 placeholder="Show first..."
-                                onChange={(selectedOption) => { console.log(selectedOption) }}
-                                options={[
-                                    { value: 'date_desc', label: 'New ones' },
-                                    { value: 'date_asc', label: 'Old ones' },
-                                    { value: 'score_desc', label: 'High scores' },
-                                    { value: 'score_asc', label: 'Low scores' },
-                                ]}/>
+                                onChange={selected => this.sortPostsBy(selected)}
+                                options={this.props.sortTypes}/>
                     </div>
                 </nav>
                 <main className="page-main">
@@ -55,18 +58,24 @@ class Forum extends Component {
 Forum.propTypes = {
     getPosts: PropTypes.func.isRequired,
     posts: PropTypes.array.isRequired,
-    category: PropTypes.string.isRequired
+    category: PropTypes.string.isRequired,
+    sortTypes: PropTypes.array.isRequired,
+    sortPosts: PropTypes.func.isRequired,
+    sortBy: PropTypes.string
 }
 
 const mapStateToProps = state => {
-    const { posts } = state
+    const { posts, parameters } = state
     return {
-        posts: posts.items
+        posts: Array.from(posts.items).sort(postComparator(posts.sortBy)),
+        sortBy: posts.sortBy,
+        sortTypes: parameters.sortTypes
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    getPosts: category => dispatch(getPosts(category))
+    getPosts: category => dispatch(getPosts(category)),
+    sortPosts: sortType => dispatch(sortPosts(sortType))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forum)

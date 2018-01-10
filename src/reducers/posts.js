@@ -1,10 +1,12 @@
 import * as ActionTypes from '../actions/actionTypes'
+import * as SortTypes from '../constants/sortTypes'
 
 const postsState = {
     isFetching: false,
     lastUpdated: null,
     category: null,
-    items: []
+    items: [],
+    sortBy: SortTypes.SORT_BY_SCORE_DESC.value
 }
 
 export const posts = (state = postsState, action) => {
@@ -77,6 +79,11 @@ export const posts = (state = postsState, action) => {
         case ActionTypes.ADD_POST:
             return {
                 ...state
+            }
+        case ActionTypes.SORT_POSTS:
+            return {
+                ...state,
+                sortBy: action.sortBy
             }
         default:
             return { ...state }

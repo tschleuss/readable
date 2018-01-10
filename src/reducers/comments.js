@@ -66,6 +66,11 @@ export const comments = (state = commentsState, action) => {
                     items
                 }
             }
+        case ActionTypes.SORT_COMMENTS:
+            return {
+                ...state,
+                sortBy: action.sortBy
+            }
         default:
             return { ...state }
     }

@@ -119,6 +119,11 @@ a {
     color: #f60;
 }
 
+.page-nav-sort .Select-value-label {
+    line-height: 27px;
+    display: block;
+}
+
 .page-main {
     max-width: 800px;
     margin: 0 auto;

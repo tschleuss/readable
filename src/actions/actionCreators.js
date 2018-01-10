@@ -32,6 +32,9 @@ export const receiveUpdatedPost = post =>
 export const addPost = post =>
     ({ type: ActionTypes.ADD_POST, post })
 
+export const sortPosts = sortBy =>
+    ({ type: ActionTypes.SORT_POSTS, sortBy })
+
 /** Categories */
 
 export const getCategories = () =>
@@ -68,3 +71,6 @@ export const receiveUpdatedComment = comment =>
 
 export const addComment = comment =>
     ({ type: ActionTypes.ADD_COMMENT, comment })
+
+export const sortComments = sortBy =>
+    ({ type: ActionTypes.SORT_COMMENTS, sortBy })
