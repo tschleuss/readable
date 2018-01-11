@@ -14,3 +14,5 @@ export const postComparator = sortType => (a, b) => {
             return 0
     }
 }
+
+export const commentComparator = sortType => (a, b) => postComparator(sortType)(a, b)

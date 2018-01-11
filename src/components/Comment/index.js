@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { upVoteComment, downVoteComment, editComment, deleteCommentById } from '../../actions/actionApi'
 import PropTypes from 'prop-types'
 import TimeAgo from 'react-timeago'
 import EditTextArea from '../EditTextArea'
@@ -19,9 +17,13 @@ class Comment extends Component {
         this.setState({ editMode: true })
     }
 
+    deleteComment() {
+        this.props.onRemove(this.props.data)
+        this.cancelBodyChange()
+    }
+
     handleBodyChange(value) {
-        const { data: comment = {} } = this.props
-        this.props.editComment({ id: comment.id, body: value })
+        this.props.onChange({ ...this.props.data, body: value })
         this.cancelBodyChange()
     }
 
@@ -31,17 +33,17 @@ class Comment extends Component {
 
     render() {
 
-        const { data: comment = {}, upVote, downVote } = this.props
+        const { data: comment = {} } = this.props
         const { editMode } = this.state
 
         return (
             <article className="comment-container">
                 <span className="comment-score-container">
-                    <button className="comment-score-vote-up" onClick={() => upVote(comment.id)}>
+                    <button className="comment-score-vote-up" onClick={() => this.props.onUpVote(comment)}>
                         <em className="fa fa-arrow-up" aria-hidden="true"></em>
                     </button>
                     <span className="comment-score">{comment.voteScore}</span>
-                    <button className="comment-score-vote-down" onClick={() => downVote(comment.id)}>
+                    <button className="comment-score-vote-down" onClick={() => this.props.onDownVote(comment)}>
                         <em className="fa fa-arrow-down" aria-hidden="true"></em>
                     </button>
                 </span>
@@ -61,7 +63,7 @@ class Comment extends Component {
                 <div className="comment-actions">
                     <button className="comment-action" onClick={() => this.toggleEditMode()}>edit</button>
                     <span>&nbsp;|&nbsp;</span>
-                    <button className="comment-action" onClick={() => {}}>delete</button>
+                    <button className="comment-action" onClick={() => this.props.onRemove(this.props.data)}>delete</button>
                 </div>
             </article>
         )
@@ -70,18 +72,10 @@ class Comment extends Component {
 
 Comment.propTypes = {
     data: PropTypes.object.isRequired,
-    upVote: PropTypes.func.isRequired,
-    downVote: PropTypes.func.isRequired,
-    editComment: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
+    onUpVote: PropTypes.func.isRequired,
+    onDownVote: PropTypes.func.isRequired
 }
 
-const mapStateToProps = state => ({})
-
-const mapDispatchToProps = dispatch => ({
-    upVote: id => dispatch(upVoteComment(id)),
-    downVote: id => dispatch(downVoteComment(id)),
-    editComment: comment => dispatch(editComment(comment)),
-    deleteCommentById: id => dispatch(deleteCommentById(id))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Comment)
+export default Comment

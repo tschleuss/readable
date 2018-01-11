@@ -37,7 +37,7 @@ export function getPostById(id) {
         return ReadableAPI.getPostsById(id)
             .then(post => {
                 dispatch(ActionCreators.saveCategory(post.category))
-                dispatch(ActionCreators.receiveUpdatedPost(post))
+                dispatch(ActionCreators.postEdited(post))
                 return post
             })
     }
@@ -48,7 +48,7 @@ export function upVotePost(id) {
         dispatch(ActionCreators.upVotePost(id))
         return ReadableAPI.upVotePostById(id)
             .then(post =>
-                dispatch(ActionCreators.receiveUpdatedPost(post)))
+                dispatch(ActionCreators.postEdited(post)))
     }
 }
 
@@ -57,7 +57,7 @@ export function downVotePost(id) {
         dispatch(ActionCreators.downVotePost(id))
         return ReadableAPI.downVotePostById(id)
             .then(post =>
-                dispatch(ActionCreators.receiveUpdatedPost(post)))
+                dispatch(ActionCreators.postEdited(post)))
     }
 }
 
@@ -65,7 +65,7 @@ export function editPost(post) {
     return dispatch => {
         dispatch(ActionCreators.editPost(post))
         return ReadableAPI.editPost(post)
-            .then(post => dispatch(ActionCreators.receiveUpdatedPost(post)))
+            .then(post => dispatch(ActionCreators.postEdited(post)))
     }
 }
 
@@ -73,7 +73,7 @@ export function deletePostById(id) {
     return dispatch => {
         dispatch(ActionCreators.deletePostById(id))
         return ReadableAPI.deletePostById(id)
-            .then(post => dispatch(ActionCreators.receiveUpdatedPost(post)))
+            .then(post => dispatch(ActionCreators.postDeleted(id)))
     }
 }
 
@@ -82,7 +82,7 @@ export function addPost(post) {
         dispatch(ActionCreators.addPost(post))
         return ReadableAPI.addPost(post)
             .then(newPost => {
-                dispatch(ActionCreators.receiveUpdatedPost(newPost))
+                dispatch(ActionCreators.postCreated(newPost))
                 return newPost
             })
     }
@@ -110,12 +110,23 @@ export function getCommentsByPostId(id) {
     }
 }
 
+export function getCommentById(id) {
+    return dispatch => {
+        dispatch(ActionCreators.getCommentById(id))
+        return ReadableAPI.getCommentById(id)
+            .then(comment => {
+                dispatch(ActionCreators.commentEdited(comment))
+                return comment
+            })
+    }
+}
+
 export function upVoteComment(id) {
     return dispatch => {
         dispatch(ActionCreators.upVoteComment(id))
         return ReadableAPI.upVoteCommentById(id)
             .then(comment =>
-                dispatch(ActionCreators.receiveUpdatedComment(comment)))
+                dispatch(ActionCreators.commentEdited(comment)))
     }
 }
 
@@ -124,7 +135,7 @@ export function downVoteComment(id) {
         dispatch(ActionCreators.downVoteComment(id))
         return ReadableAPI.downVoteCommentById(id)
             .then(comment =>
-                dispatch(ActionCreators.receiveUpdatedComment(comment)))
+                dispatch(ActionCreators.commentEdited(comment)))
     }
 }
 
@@ -132,7 +143,7 @@ export function editComment(comment) {
     return dispatch => {
         dispatch(ActionCreators.editComment(comment))
         return ReadableAPI.editComment(comment)
-            .then(comment => dispatch(ActionCreators.receiveUpdatedComment(comment)))
+            .then(comment => dispatch(ActionCreators.commentEdited(comment)))
     }
 }
 
@@ -140,7 +151,7 @@ export function deleteCommentById(id) {
     return dispatch => {
         dispatch(ActionCreators.deleteCommentById(id))
         return ReadableAPI.deleteCommentById(id)
-            .then(comment => dispatch(ActionCreators.receiveUpdatedComment(comment)))
+            .then(comment => dispatch(ActionCreators.commentDeleted(id)))
     }
 }
 
@@ -149,7 +160,7 @@ export function addComment(comment) {
         dispatch(ActionCreators.addComment(comment))
         return ReadableAPI.addComment(comment)
             .then(newComment => {
-                dispatch(ActionCreators.receiveUpdatedComment(newComment))
+                dispatch(ActionCreators.commentCreated(newComment))
                 return newComment
             })
     }

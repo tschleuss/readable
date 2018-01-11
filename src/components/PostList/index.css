@@ -13,3 +13,9 @@
     margin: 0;
     padding: 0;
 }
+
+.no-posts {
+    text-align: center;
+    color: #f2f3f5;
+    text-shadow: 1px 1px 8px #616161;
+}

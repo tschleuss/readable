@@ -126,6 +126,7 @@ class Submit extends Component {
 
 Submit.propTypes = {
     getCategories: PropTypes.func.isRequired,
+    category: PropTypes.string,
     addPost: PropTypes.func.isRequired,
     categories: PropTypes.array.isRequired,
     goBack: PropTypes.func.isRequired,

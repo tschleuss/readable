@@ -33,6 +33,7 @@ export const posts = (state = postsState, action) => {
         case ActionTypes.UP_VOTE_POST:
             return {
                 ...state,
+                isFetching: true,
                 items: state.items.map(post => {
                     if (post.id === action.id) {
                         post.voteScore++
@@ -43,6 +44,7 @@ export const posts = (state = postsState, action) => {
         case ActionTypes.DOWN_VOTE_POST:
             return {
                 ...state,
+                isFetching: true,
                 items: state.items.map(post => {
                     if (post.id === action.id) {
                         post.voteScore--
@@ -52,33 +54,42 @@ export const posts = (state = postsState, action) => {
             }
         case ActionTypes.EDIT_POST:
             return {
-                ...state
+                ...state,
+                isFetching: true
             }
         case ActionTypes.DELETE_POST_BY_ID:
             return {
-                ...state
+                ...state,
+                isFetching: true
             }
-        case ActionTypes.RECEIVE_UPDATED_POST:
+        case ActionTypes.POST_CREATED:
+            return {
+                ...state,
+                isFetching: false,
+                items: state.items.concat(action.post)
+            }
+        case ActionTypes.POST_EDITED:
             {
-                let updated = false
-                const items = state.items.map(post => {
-                    if (post.id === action.post.id) {
-                        updated = true
-                        return action.post
-                    }
-                    return post
-                })
-                if (!updated) {
-                    items.push(action.post)
-                }
+                const { id } = action.post
+                const index = state.items.findIndex(post => post.id === id)
                 return {
                     ...state,
-                    items
+                    isFetching: false,
+                    items: (index === -1) ?
+                        state.items.concat(action.post) : state.items.map(post =>
+                            post.id === id ? action.post : post)
                 }
+            }
+        case ActionTypes.POST_DELETED:
+            return {
+                ...state,
+                isFetching: false,
+                items: state.items.filter(post => post.id !== action.id)
             }
         case ActionTypes.ADD_POST:
             return {
-                ...state
+                ...state,
+                isFetching: true
             }
         case ActionTypes.SORT_POSTS:
             return {

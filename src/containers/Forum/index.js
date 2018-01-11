@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getPosts } from '../../actions/actionApi'
+import { getPosts, upVotePost, downVotePost } from '../../actions/actionApi'
 import { sortPosts } from '../../actions/actionCreators'
-import PostList from '../../components/PostList'
 import { postComparator } from '../../utils/sortHelper'
+import PostList from '../../components/PostList'
 import Select from 'react-select'
 import PropTypes from 'prop-types'
 import 'react-select/dist/react-select.css'
@@ -31,6 +31,14 @@ class Forum extends Component {
         this.props.sortPosts(value)
     }
 
+    onUpVotePost(post) {
+        this.props.upVotePost(post.id)
+    }
+
+    onDownVotePost(post) {
+        this.props.downVotePost(post.id)
+    }
+
     render() {
         let { category, posts } = this.props
         category = category === 'home' ? '' : category
@@ -48,7 +56,9 @@ class Forum extends Component {
                     </div>
                 </nav>
                 <main className="page-main">
-                    <PostList posts={posts} />
+                    <PostList posts={posts} 
+                           onUpVote={post => this.onUpVotePost(post)}
+                           onDownVote={post => this.onDownVotePost(post)}/>
                 </main>
             </div>
         )
@@ -56,12 +66,18 @@ class Forum extends Component {
 }
 
 Forum.propTypes = {
-    getPosts: PropTypes.func.isRequired,
+
+    // Values
     posts: PropTypes.array.isRequired,
     category: PropTypes.string.isRequired,
     sortTypes: PropTypes.array.isRequired,
-    sortPosts: PropTypes.func.isRequired,
-    sortBy: PropTypes.string
+    sortBy: PropTypes.string,
+
+    // Posts functions
+    getPosts: PropTypes.func.isRequired,
+    upVotePost: PropTypes.func,
+    downVotePost: PropTypes.func,
+    sortPosts: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => {
@@ -75,7 +91,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     getPosts: category => dispatch(getPosts(category)),
-    sortPosts: sortType => dispatch(sortPosts(sortType))
+    sortPosts: sortType => dispatch(sortPosts(sortType)),
+    upVotePost: id => dispatch(upVotePost(id)),
+    downVotePost: id => dispatch(downVotePost(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forum)

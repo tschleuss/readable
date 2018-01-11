@@ -1,15 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { 
-    upVotePost, 
-    downVotePost, 
-    editPost, 
-    deletePostById, 
-    addComment,
-    getPostById
-} from '../../actions/actionApi'
-import { toast } from 'react-toastify'
 import PropTypes from 'prop-types'
 import TimeAgo from 'react-timeago'
 import EditTextArea from '../EditTextArea'
@@ -35,8 +25,7 @@ class Post extends Component {
     }
 
     handleBodyChange(value) {
-        const { data: post = {} } = this.props
-        this.props.editPost({ id: post.id, body: value })
+        this.props.onChange({ ...this.props.data, body: value })
         this.cancelBodyChange()
     }
 
@@ -45,13 +34,8 @@ class Post extends Component {
     }
 
     onSaveComment(comment) {
-        const { id : parentId } = this.props.data
-        this.props.addComment({...comment, parentId})
-        .then(() => this.props.getPostById(parentId))
-        .then(() => {
-            toast.success(`Comment created successfully`)
-            this.onCancelComment();
-        })
+        this.props.onAddComment(comment)
+        this.onCancelComment()
     }
 
     onCancelComment() {
@@ -60,8 +44,9 @@ class Post extends Component {
 
     render() {
 
-        const { data: post = {}, compact = false, upVote, downVote } = this.props
+        const { data: post = {}, compact = false } = this.props
         const { editMode, replyMode } = this.state
+
         const containerClass = classNames({
             'post-container': true,
             'compact': compact
@@ -71,11 +56,11 @@ class Post extends Component {
             <div>
                 <article className={containerClass}>
                     <span className="post-score-container">
-                        <button className="post-score-vote-up" onClick={() => upVote(post.id)}>
+                        <button className="post-score-vote-up" onClick={() => this.props.onUpVote(post)}>
                             <em className="fa fa-arrow-up" aria-hidden="true"></em>
                         </button>
                         <span className="post-score">{post.voteScore}</span>
-                        <button className="post-score-vote-down" onClick={() => downVote(post.id)}>
+                        <button className="post-score-vote-down" onClick={() => this.props.onDownVote(post)}>
                             <em className="fa fa-arrow-down" aria-hidden="true"></em>
                         </button>
                     </span>
@@ -101,7 +86,7 @@ class Post extends Component {
                         <div className="post-actions">
                             <button className="post-action" onClick={() => this.toggleEditMode()}>edit</button>
                             <span>&nbsp;|&nbsp;</span>
-                            <button className="post-action" onClick={() => {}}>delete</button>
+                            <button className="post-action" onClick={() => this.props.onRemove(this.props.data)}>delete</button>
                             <span>&nbsp;|&nbsp;</span>
                             <button className="post-action" onClick={() => this.toggleReplyMode()}>reply</button>
                         </div>
@@ -118,23 +103,24 @@ class Post extends Component {
 
 Post.propTypes = {
     data: PropTypes.object.isRequired,
-    upVote: PropTypes.func.isRequired,
-    downVote: PropTypes.func.isRequired,
-    editPost: PropTypes.func.isRequired,
-    addComment: PropTypes.func.isRequired,
-    getPostById: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
+    onUpVote: PropTypes.func.isRequired,
+    onDownVote: PropTypes.func.isRequired,
+    onAddComment: PropTypes.func.isRequired,
     compact: PropTypes.bool
 }
 
-const mapStateToProps = state => ({})
+// const mapStateToProps = state => ({})
 
-const mapDispatchToProps = dispatch => ({
-    upVote: id => dispatch(upVotePost(id)),
-    downVote: id => dispatch(downVotePost(id)),
-    editPost: post => dispatch(editPost(post)),
-    deletePostById: id => dispatch(deletePostById(id)),
-    addComment: comment => dispatch(addComment(comment)),
-    getPostById: id => dispatch(getPostById(id))
-})
+// const mapDispatchToProps = dispatch => ({
+//     upVote: id => dispatch(upVotePost(id)),
+//     downVote: id => dispatch(downVotePost(id)),
+//     editPost: post => dispatch(editPost(post)),
+//     deletePostById: id => dispatch(deletePostById(id)),
+//     addComment: comment => dispatch(addComment(comment)),
+//     getPostById: id => dispatch(getPostById(id)),
+//     goToCategoryPage: category => dispatch(push(`/${category}`))
+// })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Post)
+export default Post

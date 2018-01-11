@@ -26,11 +26,17 @@ export const editPost = post =>
 export const deletePostById = id =>
     ({ type: ActionTypes.DELETE_POST_BY_ID, id })
 
-export const receiveUpdatedPost = post =>
-    ({ type: ActionTypes.RECEIVE_UPDATED_POST, post })
+export const postDeleted = id =>
+    ({ type: ActionTypes.POST_DELETED, id })
+
+export const postEdited = post =>
+    ({ type: ActionTypes.POST_EDITED, post })
 
 export const addPost = post =>
     ({ type: ActionTypes.ADD_POST, post })
+
+export const postCreated = post =>
+    ({ type: ActionTypes.POST_CREATED, post })
 
 export const sortPosts = sortBy =>
     ({ type: ActionTypes.SORT_POSTS, sortBy })
@@ -51,6 +57,9 @@ export const saveCategory = category =>
 export const getCommentsByPostId = id =>
     ({ type: ActionTypes.GET_COMMENTS_BY_POST_ID, id })
 
+export const getCommentById = id =>
+    ({ type: ActionTypes.GET_COMMENTS_BY_ID, id })
+
 export const receiveComments = comments =>
     ({ type: ActionTypes.RECEIVE_COMMENTS, comments, receivedAt: Date.now() })
 
@@ -66,11 +75,17 @@ export const editComment = comment =>
 export const deleteCommentById = id =>
     ({ type: ActionTypes.DELETE_COMMENT_BY_ID, id })
 
-export const receiveUpdatedComment = comment =>
-    ({ type: ActionTypes.RECEIVE_UPDATED_COMMENT, comment })
+export const commentDeleted = id =>
+    ({ type: ActionTypes.COMMENT_DELETED, id })
+
+export const commentEdited = comment =>
+    ({ type: ActionTypes.COMMENT_EDITED, comment })
 
 export const addComment = comment =>
     ({ type: ActionTypes.ADD_COMMENT, comment })
+
+export const commentCreated = comment =>
+    ({ type: ActionTypes.COMMENT_CREATED, comment })
 
 export const sortComments = sortBy =>
     ({ type: ActionTypes.SORT_COMMENTS, sortBy })
