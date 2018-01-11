@@ -1,15 +1,19 @@
 import * as SortTypes from '../constants/sortTypes'
 
 export const postComparator = sortType => (a, b) => {
+
+    const { timestamp: aTimestamp, voteScore: aVoteScore } = a
+    const { timestamp: bTimestamp, voteScore: bVoteScore } = b
+
     switch (sortType) {
         case SortTypes.SORT_BY_DATE_ASC.value:
-            return a.timestamp < b.timestamp ? -1 : a.timestamp > b.timestamp ? 1 : 0
+            return aTimestamp - bTimestamp
         case SortTypes.SORT_BY_DATE_DESC.value:
-            return a.timestamp > b.timestamp ? -1 : a.timestamp < b.timestamp ? 1 : 0
+            return bTimestamp - aTimestamp
         case SortTypes.SORT_BY_SCORE_ASC.value:
-            return a.voteScore < b.voteScore ? -1 : a.voteScore > b.voteScore ? 1 : 0
+            return aVoteScore - bVoteScore
         case SortTypes.SORT_BY_SCORE_DESC.value:
-            return a.voteScore > b.voteScore ? -1 : a.voteScore < b.voteScore ? 1 : 0
+            return bVoteScore - aVoteScore
         default:
             return 0
     }

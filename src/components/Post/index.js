@@ -82,15 +82,13 @@ class Post extends Component {
                             <Link to={`/${post.category}/${post.id}`}>{post.commentCount} comments</Link>
                         </span>
                     </div>
-                    {!compact && (
-                        <div className="post-actions">
-                            <button className="post-action" onClick={() => this.toggleEditMode()}>edit</button>
-                            <span>&nbsp;|&nbsp;</span>
-                            <button className="post-action" onClick={() => this.props.onRemove(this.props.data)}>delete</button>
-                            <span>&nbsp;|&nbsp;</span>
-                            <button className="post-action" onClick={() => this.toggleReplyMode()}>reply</button>
-                        </div>
-                    )}
+                    <div className="post-actions">
+                        <button className="post-action" onClick={() => this.toggleEditMode()}>edit</button>
+                        <span>&nbsp;|&nbsp;</span>
+                        <button className="post-action" onClick={() => this.props.onRemove(this.props.data)}>delete</button>
+                        <span>&nbsp;|&nbsp;</span>
+                        <button className="post-action" onClick={() => this.toggleReplyMode()}>reply</button>
+                    </div>
                 </article>
                 {!compact && replyMode && (
                     <Reply onSave={comment => this.onSaveComment(comment)} 

@@ -4,7 +4,7 @@ import * as ActionCreators from './actionCreators'
 /** Posts */
 
 export function getPosts(category = null) {
-    if (category !== null && category !== 'home') {
+    if (category !== null) {
         return getPostsByCategory(category)
     }
     return getAllPosts()

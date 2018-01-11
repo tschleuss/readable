@@ -12,7 +12,7 @@ import './index.css'
 
 class Forum extends Component {
 
-    componentWillMount() {
+    componentDidMount() {
         this.fetchPosts(this.props.category)
     }
 
@@ -69,8 +69,8 @@ Forum.propTypes = {
 
     // Values
     posts: PropTypes.array.isRequired,
-    category: PropTypes.string.isRequired,
     sortTypes: PropTypes.array.isRequired,
+    category: PropTypes.string,
     sortBy: PropTypes.string,
 
     // Posts functions

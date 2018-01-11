@@ -33,17 +33,17 @@ class Comment extends Component {
 
     render() {
 
-        const { data: comment = {} } = this.props
+        const { data: comment = {}, onUpVote, onDownVote, onRemove } = this.props
         const { editMode } = this.state
 
         return (
             <article className="comment-container">
                 <span className="comment-score-container">
-                    <button className="comment-score-vote-up" onClick={() => this.props.onUpVote(comment)}>
+                    <button className="comment-score-vote-up" onClick={() => onUpVote(comment)}>
                         <em className="fa fa-arrow-up" aria-hidden="true"></em>
                     </button>
                     <span className="comment-score">{comment.voteScore}</span>
-                    <button className="comment-score-vote-down" onClick={() => this.props.onDownVote(comment)}>
+                    <button className="comment-score-vote-down" onClick={() => onDownVote(comment)}>
                         <em className="fa fa-arrow-down" aria-hidden="true"></em>
                     </button>
                 </span>
@@ -63,7 +63,7 @@ class Comment extends Component {
                 <div className="comment-actions">
                     <button className="comment-action" onClick={() => this.toggleEditMode()}>edit</button>
                     <span>&nbsp;|&nbsp;</span>
-                    <button className="comment-action" onClick={() => this.props.onRemove(this.props.data)}>delete</button>
+                    <button className="comment-action" onClick={() => onRemove(this.props.data)}>delete</button>
                 </div>
             </article>
         )

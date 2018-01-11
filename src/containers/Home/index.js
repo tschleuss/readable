@@ -22,19 +22,16 @@ class Home extends Component {
             <div className="root">
                 <header className="main-header">
                     <nav className="main-nav">
-                        <NavLink to="/home" className="nav-item" activeClassName="active">Home</NavLink>
+                        <NavLink exact to="/" className="nav-item" activeClassName="active">Home</NavLink>
                         {categories.map(categorie => (
                             <NavLink key={categorie.name} to={`/${categorie.name}`} className="nav-item" activeClassName="active">{categorie.name}</NavLink>
                         ))}
                     </nav>
                 </header>
                 <Switch>
-                    <Route exact path="/submit" render={({match}) => (
-                        <Submit />
-                    )} />
-                    <Route exact path="/:category/submit" render={({match}) => (
-                        <Submit />
-                    )} />
+                    <Route exact path="/" component={Forum} />
+                    <Route exact path="/submit" component={Submit} />
+                    <Route exact path="/:category/submit" component={Submit} />
                     <Route exact path="/:category" render={({match}) => (
                         <Forum category={match.params.category}/>
                     )} />
