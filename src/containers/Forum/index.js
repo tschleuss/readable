@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getPosts, upVotePost, downVotePost } from '../../actions/actionApi'
+import { push } from 'react-router-redux'
+import { getPosts, upVotePost, downVotePost, deletePostById } from '../../actions/actionApi'
 import { sortPosts } from '../../actions/actionCreators'
-import { postComparator } from '../../utils/sortHelper'
+import { simpleSortComparator } from '../../utils/sortHelper'
+import { toast } from 'react-toastify'
 import PostList from '../../components/PostList'
 import Select from 'react-select'
 import PropTypes from 'prop-types'
@@ -27,21 +29,32 @@ class Forum extends Component {
     }
 
     sortPostsBy(sortType) {
-        const value = sortType ? sortType.value : null
-        this.props.sortPosts(value)
+        this.props.sortPosts(sortType)
     }
 
-    onUpVotePost(post) {
+    onUpVote(post) {
         this.props.upVotePost(post.id)
     }
 
-    onDownVotePost(post) {
+    onDownVote(post) {
         this.props.downVotePost(post.id)
     }
 
+    onClickEdit(post) {
+        this.props.goToPost(post.category, post.id, { editMode: true })
+    }
+
+    onClickDelete(post) {
+        this.props.deletePostById(post.id)
+            .then(() => toast.success(`Post deleted successfully`))
+    }
+
+    onClickReply(post) {
+        this.props.goToPost(post.category, post.id, { replyMode: true })
+    }
+
     render() {
-        let { category, posts } = this.props
-        category = category === 'home' ? '' : category
+        let { category = '', posts } = this.props
         return (
             <div>
                 <nav className="page-nav">
@@ -57,8 +70,11 @@ class Forum extends Component {
                 </nav>
                 <main className="page-main">
                     <PostList posts={posts} 
-                           onUpVote={post => this.onUpVotePost(post)}
-                           onDownVote={post => this.onDownVotePost(post)}/>
+                           onUpVote={post => this.onUpVote(post)}
+                           onDownVote={post => this.onDownVote(post)}
+                           onClickEdit={post => this.onClickEdit(post)}
+                           onClickDelete={post => this.onClickDelete(post)}
+                           onClickReply={post => this.onClickReply(post)}/>
                 </main>
             </div>
         )
@@ -71,29 +87,30 @@ Forum.propTypes = {
     posts: PropTypes.array.isRequired,
     sortTypes: PropTypes.array.isRequired,
     category: PropTypes.string,
-    sortBy: PropTypes.string,
+    sortBy: PropTypes.object,
 
     // Posts functions
     getPosts: PropTypes.func.isRequired,
     upVotePost: PropTypes.func,
     downVotePost: PropTypes.func,
-    sortPosts: PropTypes.func.isRequired
+    sortPosts: PropTypes.func.isRequired,
+    goToPost: PropTypes.func.isRequired,
+    deletePostById: PropTypes.func.isRequired
 }
 
-const mapStateToProps = state => {
-    const { posts, parameters } = state
-    return {
-        posts: Array.from(posts.items).sort(postComparator(posts.sortBy)),
-        sortBy: posts.sortBy,
-        sortTypes: parameters.sortTypes
-    }
-}
+const mapStateToProps = ({ posts, parameters }) => ({
+    posts: Array.from(posts.items).sort(simpleSortComparator(posts.sortBy)),
+    sortBy: posts.sortBy,
+    sortTypes: parameters.sortTypes
+})
 
 const mapDispatchToProps = dispatch => ({
     getPosts: category => dispatch(getPosts(category)),
     sortPosts: sortType => dispatch(sortPosts(sortType)),
     upVotePost: id => dispatch(upVotePost(id)),
-    downVotePost: id => dispatch(downVotePost(id))
+    downVotePost: id => dispatch(downVotePost(id)),
+    deletePostById: id => dispatch(deletePostById(id)),
+    goToPost: (category, id, params) => dispatch(push(`/${category}/${id}`, params))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forum)

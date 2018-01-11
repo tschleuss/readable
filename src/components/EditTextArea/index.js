@@ -11,6 +11,10 @@ class EditTextArea extends Component {
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
+    componentDidMount() {
+        this.mTextArea.focus()
+    }
+
     handleChange(event) {
         this.setState({ value: event.target.value })
     }
@@ -20,12 +24,19 @@ class EditTextArea extends Component {
     }
 
     render() {
+        const { onSave, onCancel } = this.props
+        const { value } = this.state
         return (
             <div className="edit-textarea-container">
-                <textarea className="edit-textarea" value={this.state.value} onChange={this.handleChange}></textarea>
+                <textarea 
+                    ref={input => { this.mTextArea = input }} 
+                    className="edit-textarea" 
+                    value={value} 
+                    onChange={this.handleChange}>
+                </textarea>
                 <div className="edit-textarea-actions">
-                    <button onClick={() => this.props.onSave(this.state.value)} className="edit-textarea-action">save</button>
-                    <button onClick={() => this.props.onCancel()} className="edit-textarea-action">cancel</button>
+                    <button onClick={() => onSave(value)} className="edit-textarea-action">save</button>
+                    <button onClick={() => onCancel()} className="edit-textarea-action">cancel</button>
                 </div>
             </div>
         )

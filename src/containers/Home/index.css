@@ -11,6 +11,12 @@ a {
     color: #34495e;
 }
 
+textarea, 
+input, 
+button { 
+    outline: none; 
+}
+
 .main-header {
     background-color: #f60;
     position: fixed;

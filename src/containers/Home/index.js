@@ -53,12 +53,9 @@ Home.propTypes = {
     categories: PropTypes.array.isRequired
 }
 
-const mapStateToProps = state => {
-    const { categories } = state
-    return {
-        categories: categories.items
-    }
-}
+const mapStateToProps = ({ categories }) => ({
+    categories: categories.items
+})
 
 const mapDispatchToProps = dispatch => ({
     getCategories: () => dispatch(getCategories())

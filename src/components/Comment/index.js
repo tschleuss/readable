@@ -63,7 +63,7 @@ class Comment extends Component {
                 <div className="comment-actions">
                     <button className="comment-action" onClick={() => this.toggleEditMode()}>edit</button>
                     <span>&nbsp;|&nbsp;</span>
-                    <button className="comment-action" onClick={() => onRemove(this.props.data)}>delete</button>
+                    <button className="comment-action" onClick={() => onRemove(comment)}>delete</button>
                 </div>
             </article>
         )

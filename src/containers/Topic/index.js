@@ -17,7 +17,7 @@ import {
     getCommentById
 } from '../../actions/actionApi'
 import { sortComments } from '../../actions/actionCreators'
-import { commentComparator } from '../../utils/sortHelper'
+import { simpleSortComparator } from '../../utils/sortHelper'
 import PropTypes from 'prop-types'
 import Select from 'react-select'
 import Post from '../../components/Post'
@@ -27,13 +27,18 @@ import './index.css'
 
 class Topic extends Component {
 
-    componentWillMount() {
+    componentDidMount() {
         this.updatePostAndComments()
     }
 
     updatePostAndComments() {
-        this.props.getPostById(this.props.id)
-        this.props.getCommentsByPostId(this.props.id)
+        const { id } = this.props
+        this.props.getPostById(id)
+            .then(post => {
+                if (post) {
+                    this.props.getCommentsByPostId(id)
+                }
+            })
     }
 
     getPost(id) {
@@ -41,8 +46,7 @@ class Topic extends Component {
     }
 
     sortCommentsBy(sortType) {
-        const value = sortType ? sortType.value : null
-        this.props.sortComments(value)
+        this.props.sortComments(sortType)
     }
 
     onPostChange(post) {
@@ -91,7 +95,7 @@ class Topic extends Component {
     }
 
     render() {
-        const { id, comments } = this.props
+        const { id, comments, editMode, replyMode } = this.props
         const post = this.getPost(id)
         return (
             <div>
@@ -113,9 +117,12 @@ class Topic extends Component {
                             <h1 className="post-not-found">Post not found!</h1>
                         )}
                         {post && 
-                            <Post data={post} 
+                            <Post 
+                                data={post} 
+                                editMode={editMode}
+                                replyMode={replyMode}
                                 onChange={post => this.onPostChange(post)}
-                                onRemove={post => this.onPostDeleted(post)}
+                                onClickDelete={post => this.onPostDeleted(post)}
                                 onUpVote={post => this.onUpVotePost(post)}
                                 onDownVote={post => this.onDownVotePost(post)}
                                 onAddComment={comment => this.onAddComment(comment)}/>
@@ -141,7 +148,7 @@ Topic.propTypes = {
     posts: PropTypes.array.isRequired,
     comments: PropTypes.array.isRequired,
     sortTypes: PropTypes.array.isRequired,
-    sortBy: PropTypes.string,
+    sortBy: PropTypes.object,
 
     // Posts functions
     upVotePost: PropTypes.func,
@@ -151,6 +158,8 @@ Topic.propTypes = {
     addComment: PropTypes.func,
     getPostById: PropTypes.func,
     goToCategoryPage: PropTypes.func,
+    editMode: PropTypes.bool,
+    replyMode: PropTypes.bool,
 
     // Comments functions
     getCommentsByPostId: PropTypes.func,
@@ -163,12 +172,15 @@ Topic.propTypes = {
 }
 
 const mapStateToProps = state => {
-    const { posts, comments, parameters } = state
+    const { posts, comments, parameters, router } = state
+    const { editMode, replyMode } = router.location.state || {}
     return {
         posts: posts.items,
-        comments: Array.from(comments.items).sort(commentComparator(comments.sortBy)),
+        comments: Array.from(comments.items).sort(simpleSortComparator(comments.sortBy)),
         sortBy: comments.sortBy,
-        sortTypes: parameters.sortTypes
+        sortTypes: parameters.sortTypes,
+        editMode,
+        replyMode
     }
 }
 

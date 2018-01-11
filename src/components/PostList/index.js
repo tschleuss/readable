@@ -5,7 +5,16 @@ import './index.css'
 
 const PostList = props => {
     const noop = () => {}
-    const { posts = [], onChange = noop, onRemove = noop, onUpVote = noop, onDownVote = noop, onAddComment = noop } = props
+    const {
+        onChange = noop,
+            onUpVote = noop,
+            onDownVote = noop,
+            onAddComment = noop,
+            onClickEdit = noop,
+            onClickDelete = noop,
+            onClickReply = noop,
+            posts = []
+    } = props
     return (
         <ul className="post-list">
             {posts.length === 0 && (
@@ -16,10 +25,12 @@ const PostList = props => {
                     <Post data={post} 
                         compact={true} 
                         onChange={onChange} 
-                        onRemove={onRemove}
                         onUpVote={onUpVote}
                         onDownVote={onDownVote}
-                        onAddComment={onAddComment}/>
+                        onAddComment={onAddComment}
+                        onClickEdit={onClickEdit}
+                        onClickDelete={onClickDelete}
+                        onClickReply={onClickReply}/>
                 </li>
             ))}
         </ul>
@@ -29,10 +40,12 @@ const PostList = props => {
 PostList.propTypes = {
     posts: PropTypes.array.isRequired,
     onChange: PropTypes.func,
-    onRemove: PropTypes.func,
     onUpVote: PropTypes.func,
     onDownVote: PropTypes.func,
-    onAddComment: PropTypes.func
+    onAddComment: PropTypes.func,
+    onClickEdit: PropTypes.func,
+    onClickDelete: PropTypes.func,
+    onClickReply: PropTypes.func
 }
 
 export default PostList

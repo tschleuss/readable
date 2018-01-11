@@ -11,12 +11,16 @@ class Reply extends Component {
         this.state = { body: '', author: '' }
     }
 
+    componentDidMount() {
+        this.mTextArea.focus()
+    }
+
     onSave() {
         const { body, author } = this.state
         if (body && author) {
             const id = uniqid()
             const timestamp = Date.now()
-            this.props.onSave({id, timestamp, body, author})
+            this.props.onSave({ id, timestamp, body, author })
         } else {
             toast.error(`Some fields are missing`)
         }
@@ -32,11 +36,14 @@ class Reply extends Component {
                 <article className="reply-container">
                     <span className="reply-body">
                         <label className="reply-label">text</label>
-                        <textarea name="body" 
-                                    className="reply-body-textarea" 
-                                    rows="3" 
-                                    value={this.state.body} 
-                                    onChange={event => this.setState({ body: event.target.value })}/>
+                        <textarea 
+                            ref={input => { this.mTextArea = input }} 
+                            name="body" 
+                            className="reply-body-textarea" 
+                            rows="3" 
+                            value={this.state.body} 
+                            onChange={event => this.setState({ body: event.target.value })}>
+                        </textarea>
                     </span>
                     <span className="reply-author">
                         <label className="reply-label">author</label>

@@ -36,10 +36,10 @@ class Submit extends Component {
             const id = uniqid()
             const timestamp = Date.now()
             this.props.addPost({ id, title, body, author, category, timestamp })
-            .then(post => {
-                toast.success(`Post created successfully`)
-                this.props.openPost(post.category, post.id)
-            })
+                .then(post => {
+                    toast.success(`Post created successfully`)
+                    this.props.openPost(post.category, post.id)
+                })
         } else {
             toast.error(`Some fields are missing`)
         }
@@ -55,7 +55,7 @@ class Submit extends Component {
             <div>
                 <nav className="page-nav">
                     <div className="page-nav-options"></div>
-                    <div className="page-nav-sort"></div>
+                    <div className="page-nav-sort empty-nav"></div>
                 </nav>
                 <main className="page-main">
                     <div className="submit-topic">
@@ -117,8 +117,8 @@ class Submit extends Component {
                                 <button onClick={() => this.onCancel()} className="edit-textarea-action">cancel</button>
                             </div>
                         </article>
-                    </div>
-                </main>
+                    </div> 
+                </main> 
             </div>
         )
     }
@@ -133,13 +133,10 @@ Submit.propTypes = {
     openPost: PropTypes.func.isRequired
 }
 
-const mapStateToProps = state => {
-    const { categories } = state
-    return {
-        categories: categories.items,
-        category: categories.category
-    }
-}
+const mapStateToProps = ({ categories }) => ({
+    categories: categories.items,
+    category: categories.category
+})
 
 const mapDispatchToProps = dispatch => ({
     getCategories: () => dispatch(getCategories()),

@@ -82,3 +82,7 @@
 .submit-category-result-option.selected {
     background-color: #FAFBFC;
 }
+
+.empty-nav {
+    border: 0 !important;
+}

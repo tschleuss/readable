@@ -11,21 +11,15 @@ class Post extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { editMode: false, replyMode: false }
+        const { editMode = false, replyMode = false } = props
+        this.state = { editMode, replyMode }
         this.handleBodyChange = this.handleBodyChange.bind(this)
         this.cancelBodyChange = this.cancelBodyChange.bind(this)
     }
 
-    toggleEditMode() {
-        this.setState({ editMode: true })
-    }
-
-    toggleReplyMode() {
-        this.setState({ replyMode: true })
-    }
-
     handleBodyChange(value) {
-        this.props.onChange({ ...this.props.data, body: value })
+        const { onChange, data: post } = this.props
+        onChange({ ...post, body: value })
         this.cancelBodyChange()
     }
 
@@ -42,9 +36,26 @@ class Post extends Component {
         this.setState({ replyMode: false })
     }
 
+    onClickEdit() {
+        const { onClickEdit: outerCallback = () => {}, data: post } = this.props
+        this.setState({ editMode: true })
+        outerCallback(post)
+    }
+
+    onClickDelete() {
+        const { onClickDelete: outerCallback = () => {}, data: post } = this.props
+        outerCallback(post)
+    }
+
+    onClickReply() {
+        const { onClickReply: outerCallback = () => {}, data: post } = this.props
+        this.setState({ replyMode: true })
+        outerCallback(post)
+    }
+
     render() {
 
-        const { data: post = {}, compact = false } = this.props
+        const { data: post = {}, compact = false, onUpVote, onDownVote, onClickDelete } = this.props
         const { editMode, replyMode } = this.state
 
         const containerClass = classNames({
@@ -56,11 +67,11 @@ class Post extends Component {
             <div>
                 <article className={containerClass}>
                     <span className="post-score-container">
-                        <button className="post-score-vote-up" onClick={() => this.props.onUpVote(post)}>
+                        <button className="post-score-vote-up" onClick={() => onUpVote(post)}>
                             <em className="fa fa-arrow-up" aria-hidden="true"></em>
                         </button>
                         <span className="post-score">{post.voteScore}</span>
-                        <button className="post-score-vote-down" onClick={() => this.props.onDownVote(post)}>
+                        <button className="post-score-vote-down" onClick={() => onDownVote(post)}>
                             <em className="fa fa-arrow-down" aria-hidden="true"></em>
                         </button>
                     </span>
@@ -83,11 +94,11 @@ class Post extends Component {
                         </span>
                     </div>
                     <div className="post-actions">
-                        <button className="post-action" onClick={() => this.toggleEditMode()}>edit</button>
+                        <button className="post-action" onClick={() => this.onClickEdit()}>edit</button>
                         <span>&nbsp;|&nbsp;</span>
-                        <button className="post-action" onClick={() => this.props.onRemove(this.props.data)}>delete</button>
+                        <button className="post-action" onClick={() => onClickDelete(post)}>delete</button>
                         <span>&nbsp;|&nbsp;</span>
-                        <button className="post-action" onClick={() => this.toggleReplyMode()}>reply</button>
+                        <button className="post-action" onClick={() => this.onClickReply()}>reply</button>
                     </div>
                 </article>
                 {!compact && replyMode && (
@@ -102,11 +113,15 @@ class Post extends Component {
 Post.propTypes = {
     data: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
-    onRemove: PropTypes.func.isRequired,
     onUpVote: PropTypes.func.isRequired,
     onDownVote: PropTypes.func.isRequired,
     onAddComment: PropTypes.func.isRequired,
-    compact: PropTypes.bool
+    onClickEdit: PropTypes.func,
+    onClickDelete: PropTypes.func,
+    onClickReply: PropTypes.func,
+    compact: PropTypes.bool,
+    editMode: PropTypes.bool,
+    replyMode: PropTypes.bool
 }
 
 export default Post

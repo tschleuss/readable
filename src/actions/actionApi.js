@@ -36,9 +36,12 @@ export function getPostById(id) {
         dispatch(ActionCreators.getPostById(id))
         return ReadableAPI.getPostsById(id)
             .then(post => {
-                dispatch(ActionCreators.saveCategory(post.category))
-                dispatch(ActionCreators.postEdited(post))
-                return post
+                if (post.id) {
+                    dispatch(ActionCreators.saveCategory(post.category))
+                    dispatch(ActionCreators.postEdited(post))
+                    return post
+                }
+                return null
             })
     }
 }

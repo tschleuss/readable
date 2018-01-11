@@ -6,7 +6,7 @@ const postsState = {
     lastUpdated: null,
     category: null,
     items: [],
-    sortBy: SortTypes.SORT_BY_SCORE_DESC.value
+    sortBy: SortTypes.SORT_BY_SCORE_DESC
 }
 
 export const posts = (state = postsState, action) => {
