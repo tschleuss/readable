@@ -8,3 +8,9 @@
     list-style: none;
     padding: 0;
 }
+
+.post-not-found {
+    text-align: center;
+    color: #f2f3f5;
+    text-shadow: 1px 1px 8px #616161;
+}

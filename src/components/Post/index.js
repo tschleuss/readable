@@ -111,16 +111,4 @@ Post.propTypes = {
     compact: PropTypes.bool
 }
 
-// const mapStateToProps = state => ({})
-
-// const mapDispatchToProps = dispatch => ({
-//     upVote: id => dispatch(upVotePost(id)),
-//     downVote: id => dispatch(downVotePost(id)),
-//     editPost: post => dispatch(editPost(post)),
-//     deletePostById: id => dispatch(deletePostById(id)),
-//     addComment: comment => dispatch(addComment(comment)),
-//     getPostById: id => dispatch(getPostById(id)),
-//     goToCategoryPage: category => dispatch(push(`/${category}`))
-// })
-
 export default Post

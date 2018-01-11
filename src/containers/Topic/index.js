@@ -97,16 +97,21 @@ class Topic extends Component {
             <div>
                 <nav className="page-nav">
                     <div className="page-nav-options">
-                        <Select className="page-nav-sort" 
-                                    name="sort"
-                                    value={this.props.sortBy}
-                                    placeholder="Show first..."
-                                    onChange={selected => this.sortCommentsBy(selected)}
-                                    options={this.props.sortTypes}/>
+                        {post && (
+                            <Select className="page-nav-sort" 
+                                name="sort"
+                                value={this.props.sortBy}
+                                placeholder="Show first..."
+                                onChange={selected => this.sortCommentsBy(selected)}
+                                options={this.props.sortTypes}/>
+                        )}
                     </div>
                 </nav>
                 <main className="page-main">
                     <div className="topic">
+                        {!post && (
+                            <h1 className="post-not-found">Post not found!</h1>
+                        )}
                         {post && 
                             <Post data={post} 
                                 onChange={post => this.onPostChange(post)}
@@ -115,7 +120,7 @@ class Topic extends Component {
                                 onDownVote={post => this.onDownVotePost(post)}
                                 onAddComment={comment => this.onAddComment(comment)}/>
                         }
-                        {comments && 
+                        {post && comments.length > 0 && 
                             <CommentList comments={comments} 
                                 onChange={comment => this.onCommentChange(comment)}
                                 onRemove={comment => this.onCommentDeleted(comment)}
